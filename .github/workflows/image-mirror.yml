@@ -16,12 +16,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Login to source registry
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ vars.SOURCE_REGISTRY_BASE }}
-          username: ${{ secrets.SOURCE_REG_USER }}
-          password: ${{ secrets.SOURCE_REG_PASSWORD }}
+      # - name: Login to source registry
+      #   uses: docker/login-action@v3
+      #   with:
+      #     registry: ${{ vars.SOURCE_REGISTRY_BASE }}
+      #     username: ${{ secrets.SOURCE_REG_USER }}
+      #     password: ${{ secrets.SOURCE_REG_PASSWORD }}
 
       - name: Login to target registry
         uses: docker/login-action@v3
