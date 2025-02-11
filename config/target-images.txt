@@ -3,26 +3,17 @@
 # If no tag specified, 'latest' will be used
 # Empty lines and comments starting with # are ignored
 
-# DockerHub Images
+# Dify
 # ---------------
-minio/minio:latest
+langgenius/dify-api:0.15.3
+postgres:15-alpine
+nginx:latest
+redis:6-alpine
+langgenius/dify-sandbox:0.2.10
+ubuntu/squid:latest
+semitechnologies/weaviate:1.19.0
+langgenius/dify-web:0.15.3
 
-# Elastic Images
-# -------------
-docker.elastic.co/elasticsearch/elasticsearch:8.14.3
-
-# Unstructured.io Images
-# ---------------------
-downloads.unstructured.io/unstructured-io/unstructured-api:latest
-
-# Milvus Images
-# ------------
-milvusdb/milvus:v2.5.0-beta
-
-# Add more sections as needed
-# Example format for different registries:
-# DockerHub:     organization/image:tag
-# GCR:           gcr.io/project/image:tag
-# ECR:           account.dkr.ecr.region.amazonaws.com/image:tag
-# GitHub:        ghcr.io/owner/image:tag
-# Quay:          quay.io/organization/image:tag
+# LobeChat
+# ---------------
+lobehub/lobe-chat
