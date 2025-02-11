@@ -6,8 +6,6 @@
 - `NEW_REGISTRY_BASE`: Target registry base URL (e.g. `registry.example.com`)
 - `TARGET_REG_USER`: Target registry username
 - `TARGET_REG_PASSWORD`: Target registry password
-- `SOURCE_REG_USER`: (Optional) Source registry username
-- `SOURCE_REG_PASSWORD`: (Optional) Source registry password
 
 ### Usage Example:
 ```bash
