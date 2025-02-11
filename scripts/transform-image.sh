@@ -3,14 +3,13 @@ set -eo pipefail
 
 SOURCE_IMAGE=$1
 
-# Extract image components
-IMAGE_NAME=$(echo $SOURCE_IMAGE | awk -F: '{print $1}')
+# Extract image components - only keep the last part of the image name
+IMAGE_NAME=$(echo $SOURCE_IMAGE | awk -F: '{print $1}' | awk -F/ '{print $NF}')
 TAG=$(echo $SOURCE_IMAGE | awk -F: '{print $2}')
 TAG=${TAG:-latest}
 
-# Transform image name
-TARGET_IMAGE_NAME=$(echo $IMAGE_NAME | sed 's/\//-/g')
-TARGET_IMAGE="${TARGET_REGISTRY}/${TARGET_IMAGE_NAME}:${TAG}"
+# Create target image name
+TARGET_IMAGE="${TARGET_REGISTRY}/${IMAGE_NAME}:${TAG}"
 
 # Execute image operations
 docker pull ${SOURCE_IMAGE}
