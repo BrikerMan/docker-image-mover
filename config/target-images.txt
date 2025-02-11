@@ -17,3 +17,4 @@ langgenius/dify-web:0.15.3
 # LobeChat
 # ---------------
 lobehub/lobe-chat
+lobehub/lobe-chat:1.51.3
