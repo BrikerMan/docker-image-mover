@@ -133,6 +133,7 @@ class MigrateHelper:
     def migrate(self, yaml_file: str, new_registry: str, output_file: Optional[str] = None) -> str:
         """
         Migrate images in a YAML file to use new registry.
+        Uses string-based migration to handle non-standard YAML templates.
         
         Args:
             yaml_file: Path to the input YAML file
@@ -144,44 +145,34 @@ class MigrateHelper:
         """
         if not os.path.exists(yaml_file):
             raise FileNotFoundError(f"File not found: {yaml_file}")
-            
+
+        # Read the original file content
         with open(yaml_file, 'r') as f:
-            try:
-                compose_data = yaml.safe_load(f)
-            except yaml.YAMLError as e:
-                raise ValueError(f"Invalid YAML file: {e}")
-                
-        # Handle both v1 and v2+ compose file formats
-        services = compose_data.get('services', compose_data)
+            content = f.read()
+
+        # Find all image definitions in the content
+        # This pattern matches both 'image: xxx' and 'image: "xxx"' or "image: 'xxx'"
+        image_pattern = re.compile(r'image:\s*["\']?([^"\'\n\r]+)["\']?')
         
-        if not isinstance(services, dict):
-            raise ValueError("Invalid compose file format")
-            
-        for service in services.values():
-            if isinstance(service, dict):
-                # Transform image in 'image' field if it should be migrated
-                if 'image' in service and service['image']:
-                    image = service['image']
-                    if self._is_valid_image(image) and self._should_migrate_image(image):
-                        service['image'] = self._transform_image(image, new_registry)
-                
-                # Check build context for image name
-                if 'build' in service:
-                    build = service['build']
-                    if isinstance(build, dict) and 'image' in build:
-                        image = build['image']
-                        if self._is_valid_image(image) and self._should_migrate_image(image):
-                            build['image'] = self._transform_image(image, new_registry)
-        
+        def replace_image(match):
+            image = match.group(1).strip()
+            if self._is_valid_image(image) and self._should_migrate_image(image):
+                new_image = self._transform_image(image, new_registry)
+                return f'image: {new_image}'
+            return match.group(0)
+
+        # Replace all image definitions
+        new_content = image_pattern.sub(replace_image, content)
+
         # Generate output file path if not provided
         if not output_file:
             base, ext = os.path.splitext(yaml_file)
             output_file = f"{base}.migrated{ext}"
-            
-        # Write transformed YAML
+
+        # Write transformed content
         with open(output_file, 'w') as f:
-            yaml.dump(compose_data, f, sort_keys=False)
-            
+            f.write(new_content)
+
         return output_file
 
 
