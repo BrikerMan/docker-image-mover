@@ -3,6 +3,9 @@
 # If no tag specified, 'latest' will be used
 # Empty lines and comments starting with # are ignored
 
+# Ollama
+ollama/ollama
+
 # Fry
 snowdreamtech/frps:latest
 
