@@ -40,6 +40,10 @@ jobs:
             
             echo "Processing image: $line"
             ./scripts/transform-image.sh "$line"
+            
+            # Cleanup Docker space after processing each image
+            echo "Cleaning up Docker space..."
+            docker system prune -af --volumes
           done < config/target-images.txt
 
       - name: Upload mapping logs
