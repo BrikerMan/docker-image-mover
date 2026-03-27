@@ -21,14 +21,39 @@ TARGET_IMAGE="${REGISTRY_HOST}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:${TAG}"
 
 TARGET_SHORT="${REGISTRY_NAMESPACE}/${IMAGE_NAME}:${TAG}"
 
-echo "Pulling  ${SOURCE_IMAGE}"
-docker pull "${SOURCE_IMAGE}"
+PLATFORMS=("linux/amd64" "linux/arm64")
+PLATFORM_IMAGES=()
 
-echo "Tagging  ${SOURCE_IMAGE} -> ${TARGET_SHORT}"
-docker tag "${SOURCE_IMAGE}" "${TARGET_IMAGE}"
+for PLATFORM in "${PLATFORMS[@]}"; do
+  ARCH=$(echo "$PLATFORM" | awk -F/ '{print $2}')
+  PLATFORM_TAG="${TARGET_IMAGE}-${ARCH}"
 
-echo "Pushing  ${TARGET_SHORT}"
-docker push "${TARGET_IMAGE}"
+  echo "Pulling  ${SOURCE_IMAGE} [${PLATFORM}]"
+  if PULL_OUTPUT=$(docker pull --platform "${PLATFORM}" "${SOURCE_IMAGE}" 2>&1); then
+    echo "$PULL_OUTPUT"
+    DIGEST=$(echo "$PULL_OUTPUT" | grep "Digest:" | awk '{print $2}')
+    echo "Tagging  ${SOURCE_IMAGE}@${DIGEST} -> ${TARGET_SHORT}-${ARCH}"
+    docker tag "${SOURCE_IMAGE}@${DIGEST}" "${PLATFORM_TAG}"
+
+    echo "Pushing  ${TARGET_SHORT}-${ARCH}"
+    docker push "${PLATFORM_TAG}"
+
+    PLATFORM_IMAGES+=("${PLATFORM_TAG}")
+  else
+    echo "Warning: Failed to pull ${SOURCE_IMAGE} for platform ${PLATFORM}, skipping"
+  fi
+done
+
+if [ ${#PLATFORM_IMAGES[@]} -eq 0 ]; then
+  echo "Error: No platform images were successfully pulled for ${SOURCE_IMAGE}"
+  exit 1
+fi
+
+echo "Creating manifest  ${TARGET_SHORT}"
+# Remove any pre-existing local manifest to avoid conflicts with a fresh create
+docker manifest rm "${TARGET_IMAGE}" 2>/dev/null || true
+docker manifest create "${TARGET_IMAGE}" "${PLATFORM_IMAGES[@]}"
+docker manifest push "${TARGET_IMAGE}"
 
 echo "Done: ${SOURCE_IMAGE} -> ${TARGET_SHORT}"
 
