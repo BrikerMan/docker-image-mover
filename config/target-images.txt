@@ -20,6 +20,7 @@ caddy:2
 
 # Sync
 lscr.io/linuxserver/syncthing
+chrislusf/seaweedfs:latest
 
 # Auth
 svhd/logto:latest
