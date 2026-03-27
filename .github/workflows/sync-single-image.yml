@@ -4,15 +4,17 @@ on:
   workflow_dispatch:
     inputs:
       source_image:
-        description: 'Source image name (e.g. nginx:1234 or abc/nginx:1234)'
+        description: 'Source image (e.g. nginx:alpine or pgvector/pgvector:pg18)'
         required: true
         type: string
+
+env:
+  REGISTRY_HOST: ${{ secrets.REGISTRY_HOST }}
+  REGISTRY_NAMESPACE: ${{ secrets.REGISTRY_NAMESPACE }}
 
 jobs:
   mirror-single-image:
     runs-on: ubuntu-latest
-    env:
-      TARGET_REGISTRY: ${{ secrets.NEW_REGISTRY_BASE }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -20,9 +22,9 @@ jobs:
       - name: Login to target registry
         uses: docker/login-action@v3
         with:
-          registry: ${{ secrets.NEW_REGISTRY_BASE }}
-          username: ${{ secrets.TARGET_REG_USER }}
-          password: ${{ secrets.TARGET_REG_PASSWORD }}
+          registry: ${{ secrets.REGISTRY_HOST }}
+          username: ${{ secrets.REGISTRY_USER }}
+          password: ${{ secrets.REGISTRY_TOKEN }}
 
       - name: Transform and push image
         run: |
