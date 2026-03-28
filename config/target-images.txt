@@ -32,6 +32,11 @@ certimate/certimate
 snowdreamtech/frps:latest
 snowdreamtech/frpc:latest
 
+# Python Env
+ghcr.io/brikerman/docker-devpack:latest
+ghcr.io/brikerman/docker-devpack:py3.13-ubuntu24.04
+ghcr.io/brikerman/docker-devpack:py3.13-ubuntu24.04-china
+
 # ===========================
 # Database
 # ===========================
