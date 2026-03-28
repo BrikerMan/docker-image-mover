@@ -41,6 +41,7 @@ ghcr.io/brikerman/docker-devpack:py3.13-ubuntu24.04-china
 # Database
 # ===========================
 pgvector/pgvector:pg18
+pgvector/pgvector:pg17
 pgvector/pgvector:pg16
 postgres:16
 mysql:8.1.0
