@@ -46,6 +46,7 @@ pgvector/pgvector:pg16
 postgres:16
 mysql:8.1.0
 redis
+redis:7-alpine
 
 # ===========================
 # Observability (Grafana Stack)
@@ -89,3 +90,11 @@ linuxserver/emby:latest
 # AI / LLM
 # ===========================
 ghcr.io/open-webui/open-webui:main
+
+# ===========================
+# LLM Observability (Langfuse)
+# # ===========================
+docker.io/langfuse/langfuse:3
+docker.io/langfuse/langfuse-worker:3
+docker.io/clickhouse/clickhouse-server:24
+docker.io/minio/minio
