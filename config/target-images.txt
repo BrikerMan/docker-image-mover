@@ -98,3 +98,7 @@ docker.io/langfuse/langfuse:3
 docker.io/langfuse/langfuse-worker:3
 docker.io/clickhouse/clickhouse-server:24
 docker.io/minio/minio
+
+
+# Other
+node:22-slim
