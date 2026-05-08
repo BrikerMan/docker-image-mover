@@ -102,3 +102,4 @@ docker.io/minio/minio
 
 # Other
 node:22-slim
+kestra/kestra:latest
