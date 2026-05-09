@@ -7,6 +7,13 @@
 #   pgvector/pgvector:pg18 -> base/pgvector:pg18
 #   lscr.io/linuxserver/sonarr:latest -> base/sonarr:latest
 
+# Other
+node:22-slim
+kestra/kestra:latest
+ghcr.io/anomalyco/opencode
+alpine:latest
+tindy2013/subconverter:latest
+
 # ===========================
 # Base / Infra
 # ===========================
@@ -100,8 +107,4 @@ docker.io/clickhouse/clickhouse-server:24
 docker.io/minio/minio
 
 
-# Other
-node:22-slim
-kestra/kestra:latest
-ghcr.io/anomalyco/opencode
-alpine:latest
+
