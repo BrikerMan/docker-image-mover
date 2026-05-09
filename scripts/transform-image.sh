@@ -23,6 +23,20 @@ TARGET_IMAGE="${REGISTRY_HOST}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:${TAG}"
 
 TARGET_SHORT="${REGISTRY_NAMESPACE}/${IMAGE_NAME}:${TAG}"
 
+SKIP=false
+if docker buildx imagetools inspect "${TARGET_IMAGE}" >/dev/null 2>&1; then
+  SOURCE_DIGEST=$(docker buildx imagetools inspect "${SOURCE_IMAGE}" --format '{{.Manifest.Digest}}')
+  TARGET_DIGEST=$(docker buildx imagetools inspect "${TARGET_IMAGE}" --format '{{.Manifest.Digest}}')
+  if [ "$SOURCE_DIGEST" = "$TARGET_DIGEST" ]; then
+    echo "Skip: ${SOURCE_IMAGE} -> ${TARGET_SHORT} (digest: ${SOURCE_DIGEST})"
+    SKIP=true
+  fi
+fi
+
+if [ "$SKIP" = true ]; then
+  exit 0
+fi
+
 echo "Copying  ${SOURCE_IMAGE} -> ${TARGET_SHORT} (platforms: ${PLATFORMS})"
 
 if docker buildx imagetools create \
