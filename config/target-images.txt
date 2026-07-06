@@ -23,14 +23,15 @@ docker.gitea.com/gitea:latest
 docker.gitea.com/act_runner:latest
 
 # Reverse Proxy
-caddy:2
+caddy:2.10.2
 
 # Sync
 lscr.io/linuxserver/syncthing
-chrislusf/seaweedfs:latest
+chrislusf/seaweedfs:4.07
 
 # Auth
 svhd/logto:latest
+casdoor/casdoor-all-in-one:latest
 
 # Cert
 certimate/certimate
@@ -52,7 +53,7 @@ pgvector/pgvector:pg17
 pgvector/pgvector:pg16
 postgres:16
 mysql:8.1.0
-redis
+redis:8.6.2-alpine
 redis:7-alpine
 
 # ===========================
@@ -62,7 +63,7 @@ grafana/grafana:latest
 grafana/alloy:latest
 grafana/loki:latest
 grafana/tempo:latest
-victoriametrics/victoria-metrics:latest
+victoriametrics/victoria-metrics:v1.132.0
 
 # ===========================
 # Base / Utils
@@ -101,8 +102,8 @@ ghcr.io/open-webui/open-webui:main
 # ===========================
 # LLM Observability (Langfuse)
 # # ===========================
-docker.io/langfuse/langfuse:3
-docker.io/langfuse/langfuse-worker:3
+docker.io/langfuse/langfuse:latest
+docker.io/langfuse/langfuse-worker:latest
 docker.io/clickhouse/clickhouse-server:24
 docker.io/minio/minio
 
