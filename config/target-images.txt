@@ -9,7 +9,7 @@
 
 # Other
 node:22-slim
-kestra/kestra:latest
+# kestra/kestra:latest  # 太大了，暂时不用
 ghcr.io/anomalyco/opencode
 alpine:latest
 tindy2013/subconverter:latest
