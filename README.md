@@ -8,7 +8,7 @@ Add these **Repository Secrets**:
 
 | Secret | Description | Example |
 |--------|-------------|---------|
-| `REGISTRY_HOST` | Target registry host with port | `g.bmio.net:19443` |
+| `REGISTRY_HOST` | Target registry host with port | `git.my-company.com` |
 | `REGISTRY_NAMESPACE` | Target namespace/organization | `base` |
 | `REGISTRY_USER` | Registry username | `your-user` |
 | `REGISTRY_TOKEN` | Registry password or token | `gitea_xxx` |
@@ -29,5 +29,5 @@ Trigger **Sync Single Docker Image** workflow, enter source image like `nginx:al
 
 Only the last segment of the image name is kept:
 
-- `pgvector/pgvector:pg18` → `g.bmio.net:19443/base/pgvector:pg18`
-- `postgres:15-alpine` → `g.bmio.net:19443/base/postgres:15-alpine`
+- `pgvector/pgvector:pg18` → `git.my-company.com/base/pgvector:pg18`
+- `postgres:15-alpine` → `git.my-company.com/base/postgres:15-alpine`
