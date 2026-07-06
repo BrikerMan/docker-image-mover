@@ -33,7 +33,7 @@ chrislusf/seaweedfs:latest
 
 # Auth
 svhd/logto:latest
-casdoor/casdoor-all-in-one:latest
+casbin/casdoor-all-in-one:latest
 
 # Cert
 certimate/certimate
