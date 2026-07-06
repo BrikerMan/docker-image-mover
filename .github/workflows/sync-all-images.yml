@@ -39,18 +39,43 @@ jobs:
         run: |
           chmod +x scripts/transform-image.sh
 
+          FAILED=()
+          TOTAL=0
+
           while IFS= read -r line || [[ -n "$line" ]]; do
             [[ -z "$line" ]] && continue
             [[ $line =~ ^[[:space:]]*# ]] && continue
 
+            TOTAL=$((TOTAL + 1))
             echo "========================================="
-            echo "  Processing: ${line}"
+            echo "  Processing (${TOTAL}): ${line}"
             echo "========================================="
-            ./scripts/transform-image.sh "$line"
+
+            if ./scripts/transform-image.sh "$line"; then
+              echo "✅ Synced: ${line}"
+            else
+              echo "::warning::Failed to sync: ${line}"
+              FAILED+=("$line")
+            fi
 
             echo "Cleaning up Docker space..."
             docker system prune -af --volumes
           done < config/target-images.txt
+
+          echo ""
+          echo "========================================="
+          echo "  Summary: $((TOTAL - ${#FAILED[@]}))/${TOTAL} synced, ${#FAILED[@]} failed"
+          echo "========================================="
+
+          if [ ${#FAILED[@]} -gt 0 ]; then
+            echo "::error::${#FAILED[@]} image(s) failed to sync:"
+            for f in "${FAILED[@]}"; do
+              echo "  ❌ $f"
+            done
+            exit 1
+          fi
+
+          echo "✅ All images synced successfully."
 
       - name: Upload mapping logs
         if: always()
