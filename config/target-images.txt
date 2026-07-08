@@ -113,3 +113,4 @@ docker.io/minio/minio
 
 
 
+gcr.io/cadvisor/cadvisor:v0.51.0  # cgroups v2 支持
