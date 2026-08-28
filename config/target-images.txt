@@ -21,6 +21,13 @@ tindy2013/subconverter:latest
 # Gitea
 docker.gitea.com/gitea:latest
 docker.gitea.com/act_runner:latest
+# Gitea Actions runner binary (注意：repo 是 docker.gitea.com/runner，无 gitea/ namespace)
+docker.gitea.com/runner:2.1.0
+docker.gitea.com/runner:latest
+# Gitea Actions runner job images (workflow runs-on: ubuntu-latest 等)
+docker.gitea.com/runner-images:ubuntu-latest
+docker.gitea.com/runner-images:ubuntu-22.04
+docker.gitea.com/runner-images:ubuntu-24.04
 
 # Reverse Proxy
 caddy:2.10.2
@@ -102,6 +109,7 @@ linuxserver/emby:latest
 # AI / LLM
 # ===========================
 ghcr.io/open-webui/open-webui:main
+ghcr.io/berriai/litellm-database:main-stable  # LiteLLM proxy (database variant), spark node
 
 # ===========================
 # LLM Observability (Langfuse)
@@ -114,3 +122,8 @@ docker.io/minio/minio
 
 
 gcr.io/cadvisor/cadvisor:v0.51.0  # cgroups v2 支持
+
+# ===========================
+# Uptime / Status monitoring
+# ===========================
+mwader/static-ffmpeg:9.0
