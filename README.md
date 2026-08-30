@@ -27,7 +27,11 @@ Trigger **Sync Single Docker Image** workflow, enter source image like `nginx:al
 
 `org/image:tag` → `{REGISTRY_HOST}/{REGISTRY_NAMESPACE}/image:tag`
 
-Only the last segment of the image name is kept:
+Only the last segment of the image name is kept, regardless of source registry:
 
 - `pgvector/pgvector:pg18` → `git.my-company.com/base/pgvector:pg18`
 - `postgres:15-alpine` → `git.my-company.com/base/postgres:15-alpine`
+- `ghcr.io/berriai/litellm-database:main-stable` → `git.my-company.com/base/litellm-database:main-stable`
+- `lscr.io/linuxserver/sonarr:latest` → `git.my-company.com/base/sonarr:latest`
+
+Any registry is supported (Docker Hub, GHCR, gcr.io, lscr.io, private registries, etc.).

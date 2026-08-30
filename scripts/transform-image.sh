@@ -8,6 +8,10 @@ if [ -z "$SOURCE_IMAGE" ]; then
   exit 1
 fi
 
+# Strip inline comments (e.g. "alpine:latest  # lightweight base"). Safe because
+# OCI image names do not allow '#'.
+SOURCE_IMAGE=$(echo "$SOURCE_IMAGE" | sed -E 's/[[:space:]]+#.*$//')
+
 PLATFORMS=${2:-linux/amd64,linux/arm64}
 
 if [ -z "$REGISTRY_HOST" ] || [ -z "$REGISTRY_NAMESPACE" ]; then

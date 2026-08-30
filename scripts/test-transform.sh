@@ -10,6 +10,8 @@ while IFS= read -r line || [[ -n "$line" ]]; do
 
     # Process the image
     SOURCE_IMAGE=$line
+    # Strip inline comments (kept in sync with transform-image.sh)
+    SOURCE_IMAGE=$(echo "$SOURCE_IMAGE" | sed -E 's/[[:space:]]+#.*$//')
     
     # Get just the image name (last part after last slash) and tag
     IMAGE_NAME=$(echo $SOURCE_IMAGE | awk -F: '{print $1}' | awk -F/ '{print $NF}')
