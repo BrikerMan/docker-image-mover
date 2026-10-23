@@ -6,6 +6,11 @@
 # Naming rule: only last segment kept
 #   pgvector/pgvector:pg18 -> base/pgvector:pg18
 #   lscr.io/linuxserver/sonarr:latest -> base/sonarr:latest
+#
+# Since pinned-version sync: floating refs (latest / no tag) are ALSO pushed as
+# an immutable base/<name>:sha-<12hex-digest> tag next to latest, and exact
+# digests (image@sha256:...) are supported. Prefer exact version tags or digests
+# here where upstream provides them — 'latest' entries keep working but drift.
 
 # Other
 node:22-slim
