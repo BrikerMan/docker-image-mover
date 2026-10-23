@@ -109,7 +109,7 @@ linuxserver/emby:latest
 # AI / LLM
 # ===========================
 ghcr.io/open-webui/open-webui:main
-ghcr.io/berriai/litellm-database:main-stable  # LiteLLM proxy (database variant), spark node
+ghcr.io/berriai/litellm-database:1.106.2  # LiteLLM proxy (database variant). 2026-10-23: pin 显式版本,弃用浮动 tag(10/21 main-stable 供应链投毒事件);升级时改此行+手动触发 sync-single-image
 
 # ===========================
 # LLM Observability (Langfuse)
