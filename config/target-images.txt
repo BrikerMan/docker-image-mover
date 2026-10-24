@@ -39,7 +39,7 @@ caddy:2.10.2
 caddy:latest
 
 # Sync
-lscr.io/linuxserver/syncthing
+lscr.io/linuxserver/syncthing:2.1.7  # 2026-10-24 pin 显式版本(弃浮动); 升级时改此行+sync-single
 chrislusf/seaweedfs:4.07
 chrislusf/seaweedfs:latest
 
@@ -48,7 +48,7 @@ svhd/logto:latest
 casbin/casdoor-all-in-one:latest
 
 # Cert
-certimate/certimate
+certimate/certimate:v0.4.35  # 2026-10-24 pin 显式版本
 
 # Frp
 snowdreamtech/frps:latest
@@ -102,8 +102,8 @@ jxxghp/moviepilot-v2:latest
 # Download (QB/Sonarr/Prowlarr)
 # ===========================
 lscr.io/linuxserver/qbittorrent:latest
-lscr.io/linuxserver/sonarr:latest
-lscr.io/linuxserver/prowlarr:latest
+lscr.io/linuxserver/sonarr:version-4.0.20.3014  # 2026-10-24 pin(linuxserver 用 version- 前缀); 升级改此行+sync-single
+lscr.io/linuxserver/prowlarr:version-2.6.5.5623  # 2026-10-24 pin(version- 前缀); 升级改此行+sync-single
 
 # ===========================
 # Media
